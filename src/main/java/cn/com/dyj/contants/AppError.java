@@ -10,6 +10,9 @@ public enum AppError {
   UNAUTHORIZED_ACCESSED(4001, "unauthorized"),
   UNAUTHORIZED_NO_LOGIN(4002, "user.no.login"),
 
+  REQUEST_PARAM_ERROR(4003, "请求参数有误"),
+
+
   DB_OPERATE_ERROR(8999, "database.operate.error"),
   OTHER_METHOD_ARGS_NOT_VALID(9000, ""),
   OTHER_HTTP_MEDIA_TYPE_NOT_SUPPORT(9001, "other.contenttype.unsupport"),

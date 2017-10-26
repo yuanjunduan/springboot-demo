@@ -7,15 +7,12 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * @author OWEN date: 2017年7月24日 下午3:31:08
- */
 @Configuration
 public class RestTemplateConfigure {
-  
+
   @Value("${rest.read.timeout}")
   private int readTimeout;
-  
+
   @Value("${rest.connect.timeout}")
   private int connectTimeout;
 

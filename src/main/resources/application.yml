@@ -1,7 +1,6 @@
 #默认启动配置
 spring.profiles.active: development.env
 
-
 spring.jackson:
   date-format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
   joda-date-time-format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
@@ -17,7 +16,6 @@ spring.threadPool:
 rest:
   read.timeout: 30000
   connect.timeout: 15000
-
 
 ---
 spring:
@@ -56,16 +54,15 @@ server:
 spring:
   profiles: development.env
   jpa:
-    database: mysql
+    database: mysql #指定数据库
     generate-ddl: true
-    hibernate.ddl-auto: update
-    show-sql: true
+    hibernate.ddl-auto: update #自动建表
+    show-sql: true #显示sql
     properties.jadira.usertype.autoRegisterUserTypes: true
     hibernate.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
   datasource:
     driverClassName: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://localhost:3306/precisionMarketing_dev?characterEncoding=UTF-8&autoReconnect=true
-    &rewriteBatchedStatements=true&allowMultiQueries=true&useSSL=true
+    url: jdbc:p6spy:mysql://10.20.2.133:3306/springbootdemo?characterEncoding=UTF-8&autoReconnect=true&rewriteBatchedStatements=true&allowMultiQueries=true&useSSL=true
     username: root
     password: 123456
     max-active: 10
@@ -74,7 +71,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
 
 operation:
-  swagger-open: true #是否开启swagger (true/false)
+  swagger-open: true #只允许本地和测试使用  生产不允许使用false
 
 server:
   port: 9100

@@ -6,9 +6,6 @@ import cn.com.dyj.utils.SysUserUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 
-/**
- * Created by liufei on 2017/8/8.
- */
 @Configuration
 public class AuditorConfigure implements AuditorAware<UserModel> {
 

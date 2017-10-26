@@ -1,8 +1,10 @@
 package cn.com.dyj.service;
 
+import cn.com.dyj.contants.AppError;
 import cn.com.dyj.entity.DemoModel;
-import cn.com.dyj.entity.DemoModel1;
+import cn.com.dyj.entity.DemoModelList;
 import cn.com.dyj.enum1.EntityStatus;
+import cn.com.dyj.exception.BadRequestException;
 import cn.com.dyj.repository.DemoModelRepository;
 import cn.com.dyj.utils.PageInfo;
 
@@ -52,10 +54,10 @@ public class DemoModelService {
       }
 
       //in 查询
-      final Set<DemoModel1> demoModel1List = model.getDemoModel1List();
-      if (CollectionUtils.isNotEmpty(demoModel1List)) {
+      final Set<DemoModelList> demoModelListList = model.getDemoModelListList();
+      if (CollectionUtils.isNotEmpty(demoModelListList)) {
         Set<Long> ids = new HashSet<>();
-        demoModel1List.forEach(demo1 -> ids.add(demo1.getId()));
+        demoModelListList.forEach(demo1 -> ids.add(demo1.getId()));
         // authors.replaceAll("；", ";").split(";");
         predicates.add(root.get("createUser").get("username").in(ids));
       }
@@ -72,8 +74,34 @@ public class DemoModelService {
 
       }
     }
-
     // pageList.getTotalElements() 获取的总记录数
     return new PageInfo<>(listResponses, pageList.getTotalElements());
+  }
+
+  public DemoModel save(final DemoModel demoReq) {
+    return repo.save(demoReq);
+  }
+
+  public DemoModel find(final Long reqId) {
+    return repo.findOne(reqId);
+  }
+
+  public void delete(final Long reqId) {
+
+    final DemoModel demo = repo.findOne(reqId);
+    if (null == demo) {
+      throw new BadRequestException(AppError.REQUEST_PARAM_ERROR, "具体的错误信息");
+    }
+    demo.setStatus(EntityStatus.DELETE);
+    repo.save(demo);
+  }
+
+  public DemoModel update(final DemoModel reqModel) {
+
+    final DemoModel demo = repo.findOne(reqModel.getId());
+    if (null == demo) {
+      throw new BadRequestException(AppError.REQUEST_PARAM_ERROR, "具体的错误信息");
+    }
+    return repo.save(demo);
   }
 }

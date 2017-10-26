@@ -46,4 +46,24 @@ public class BaseTest extends Assert {
     mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilters(filterChainProxy).build();
   }
 
+
+  /*
+  之前项目使用的keycloak  实例
+  public HttpHeaders getHttpHeader() {
+    final BasicAuthConfiguration config = new BasicAuthConfiguration();
+    config.setAuthServerUrl(authServerUrl);
+    config.setCredentialSecret(clientSecret);
+    config.setResource(resource);
+    config.setRealm(realm);
+    config.setUsername(username);
+    config.setPassword(password);
+
+    final BasicAuthToken basicToken = new BasicAuthToken(config);
+
+    final String token = basicToken.getToken();
+    final HttpHeaders headers = new HttpHeaders();
+
+    headers.add("authorization", "Bearer " + token);
+    return headers;
+  }*/
 }

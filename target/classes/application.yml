@@ -1,0 +1,78 @@
+#默认启动配置
+spring.profiles.active: development.env
+
+spring.jackson:
+  date-format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+  joda-date-time-format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+  serialization.write_dates_as_timestamps: false
+  time-zone: GMT+8
+
+spring.threadPool:
+  corePoolSize: 10 #核心线程数
+  maximumPoolSize: 100 #最大线程数
+  keepAliveTime: 300
+
+##restTemplate配置
+rest:
+  read.timeout: 30000
+  connect.timeout: 15000
+
+---
+spring:
+  profiles: test.env
+  h2:
+    console:
+      settings.web-allow-others: true #远程访问
+      enabled: true # 默认启动程序启动
+      path: /h2 #访问路径 localhost:9100/h2
+  jpa:
+    generate-ddl: true
+    hibernate.ddl-auto: update
+    show-sql: true
+    properties.jadira.usertype.autoRegisterUserTypes: true
+    hibernate.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  datasource:
+    data: classpath*:data.sql # 初始化数据
+    platform: h2
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:operation;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: root
+    password:
+    max-active: 10
+    min-idle: 0
+    max-idle: 10
+
+operation:
+  swagger-open: true #是否开启swagger (true/false)
+
+server:
+  port: 8080
+  context-path: /
+
+
+---
+spring:
+  profiles: development.env
+  jpa:
+    database: mysql #指定数据库
+    generate-ddl: true
+    hibernate.ddl-auto: update #自动建表
+    show-sql: true #显示sql
+    properties.jadira.usertype.autoRegisterUserTypes: true
+    hibernate.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  datasource:
+    driverClassName: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://10.20.2.133:3306/springbootdemo?characterEncoding=UTF-8&autoReconnect=true&rewriteBatchedStatements=true&allowMultiQueries=true&useSSL=true
+    username: root
+    password: 123456
+    max-active: 10
+    min-idle: 0
+    max-idle: 10
+    type: com.zaxxer.hikari.HikariDataSource
+
+operation:
+  swagger-open: true #是否开启swagger (true/false)
+
+server:
+  port: 9100
+  context-path: /

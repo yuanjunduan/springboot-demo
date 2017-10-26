@@ -1,0 +1,14 @@
+1508989696333|113|statement|connection 0|create table demo_model (id bigint(20) not null auto_increment, create_time datetime COMMENT '创建时间', name varchar(255), status int(1) default 0 COMMENT '策略状态 0：正常，1：删除', update_time datetime COMMENT '修改时间', create_user_id bigint, update_user_id bigint, primary key (id))|
+1508989696366|21|statement|connection 0|create table demo_model1 (id bigint not null auto_increment, email varchar(255), name varchar(255), user_name varchar(255), demo_model_1_id bigint(20), primary key (id))|
+1508989696395|27|statement|connection 0|create table user_model (id bigint not null auto_increment, name varchar(255), primary key (id))|
+1508989696502|104|statement|connection 0|alter table demo_model add constraint FKoaxvfm8fnd1qjhj91dfmeeuot foreign key (create_user_id) references user_model (id)|
+1508989696588|76|statement|connection 0|alter table demo_model add constraint FK9r7hjx702eg7k1jig5022tt89 foreign key (update_user_id) references user_model (id)|
+1508989696643|51|statement|connection 0|alter table demo_model1 add constraint FKic77847otwbckfhkqyhi2mtaa foreign key (demo_model_1_id) references demo_model (id)|
+1508991990198|100|statement|connection 0|create table demo_model_list (id bigint not null auto_increment, email varchar(255), name varchar(255), user_name varchar(255), demo_model_1_id bigint(20), primary key (id))|
+1508991990272|51|statement|connection 0|alter table demo_model_list add constraint FKko37rawy2u14nvld92lcvmupc foreign key (demo_model_1_id) references demo_model (id)|
+1508992200224|88|statement|connection 0|create table demo_model (id bigint(20) not null auto_increment, create_time datetime COMMENT '创建时间', name varchar(255), status int(1) default 0 COMMENT '策略状态 0：正常，1：删除', update_time datetime COMMENT '修改时间', create_user_id bigint, update_user_id bigint, primary key (id))|
+1508992200269|23|statement|connection 0|create table demo_model_list (id bigint not null auto_increment, email varchar(255), name varchar(255), user_name varchar(255), demo_model_id bigint(20), primary key (id))|
+1508992200295|23|statement|connection 0|create table user_model (id bigint not null auto_increment, name varchar(255), primary key (id))|
+1508992200348|50|statement|connection 0|alter table demo_model add constraint FKoaxvfm8fnd1qjhj91dfmeeuot foreign key (create_user_id) references user_model (id)|
+1508992200405|55|statement|connection 0|alter table demo_model add constraint FK9r7hjx702eg7k1jig5022tt89 foreign key (update_user_id) references user_model (id)|
+1508992200474|65|statement|connection 0|alter table demo_model_list add constraint FK3p0l452m5vt49nvviiv8l5wu4 foreign key (demo_model_id) references demo_model (id)|

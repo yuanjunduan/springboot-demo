@@ -20,8 +20,7 @@ import java.util.List;
 public interface DemoModelRepository extends JpaRepository<DemoModel, Long>, JpaSpecificationExecutor<DemoModel> {
 
   //查询
-  @Query("select a from DemoModel a where a.demoModel1.id=:id")
-  List<DemoModel> findByDemoId(@Param("id") Long id);
+  List<DemoModel> findById(final Long id);
 
   //可以直接透过name 查询
   //还有很多用法  https://docs.spring.io/spring-data/jpa/docs/2.0.0.M1/reference/html/  ctrl+f findByAgeGreaterThanEqual
@@ -32,9 +31,8 @@ public interface DemoModelRepository extends JpaRepository<DemoModel, Long>, Jpa
   @Query(value = "update demo_model set id=:id , name=:name where id=:planId", nativeQuery = true)
   int updateForeignKeyById(@Param("id") final Long id, @Param("planId") final Long planId, @Param("name") final String name);
 
-  @Query("select s from DemoModel s left join FETCH s.demoModel1 p where p.id=:planId and s.id=:strategyId")
-  DemoModel findStrategyAndPlanByPlanIdAndStrategyId(@Param("strategyId") final Long strategyId,
-      @Param("planId") final Long planId);
+  @Query("select s from DemoModel s left join FETCH s.demoModelListList p where p.id=:listId and s.id=:id")
+  DemoModel find(@Param("id") final Long id, @Param("listId") final Long listId);
 
   /**
    * 根据ID获取任务.

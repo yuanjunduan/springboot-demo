@@ -25,10 +25,6 @@ import java.util.Arrays;
 public class SendSmsService {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
-  @Value("${sms.send.limit}")
-  private int limit = 1000;
-  @Value("${sms.url}")
-  private String smsUrl;
   @Autowired
   private RestTemplate restTemplate;
 

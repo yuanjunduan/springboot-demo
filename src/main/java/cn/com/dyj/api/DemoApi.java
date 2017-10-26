@@ -1,5 +1,6 @@
 package cn.com.dyj.api;
 
+import cn.com.dyj.contants.ApiDocs;
 import cn.com.dyj.contants.UrlsConstants;
 import cn.com.dyj.entity.DemoModel;
 import cn.com.dyj.service.DemoModelService;
@@ -32,37 +33,42 @@ public class DemoApi {
   /**
    * 策略保存
    *
-   * @param strategyReq 请求数据
+   * @param demoReq 请求数据
    * @return 返回保存策略实体
    */
   @PostMapping
-  @ApiOperation(value = "接口描述", notes = "接口描述")
-  public DemoModel saveStrategy(@RequestBody final DemoModel strategyReq) {
+  @ApiOperation(value = ApiDocs.API_DEMO_ADD, notes = ApiDocs.API_DEMO_ADD)
+  public DemoModel save(@RequestBody final DemoModel demoReq) {
 
-    return null;
+    return service.save(demoReq);
   }
 
-  @GetMapping("/{strategyId}")
-  public DemoModel findStrategy(@PathVariable final Long strategyId) {
+  @GetMapping("/{reqId}")
+  @ApiOperation(value = ApiDocs.API_DEMO_FIND_ONE, notes = ApiDocs.API_DEMO_FIND_ONE)
+  public DemoModel find(@PathVariable final Long reqId) {
 
-    return null;
+    return service.find(reqId);
   }
 
-  @DeleteMapping("/{strategyId}")
-  public void deleteStrategy(@PathVariable final Long strategyId) {
-
+  @DeleteMapping("/{reqId}")
+  @ApiOperation(value = ApiDocs.API_DEMO_DELETE, notes = ApiDocs.API_DEMO_DELETE)
+  public void delete(@PathVariable final Long reqId) {
+    service.delete(reqId);
   }
 
-  @PutMapping("/{strategyId}")
-  public DemoModel updateStrategy(@PathVariable final Long strategyId, @RequestBody final DemoModel strategyReq) {
+  @PutMapping("/{reqId}")
+  @ApiOperation(value = ApiDocs.API_DEMO_UPDATE, notes = ApiDocs.API_DEMO_UPDATE)
+  public DemoModel update(@PathVariable final Long reqId, @RequestBody final DemoModel reqModel) {
 
-    return null;
+    reqModel.setId(reqId);
+    return service.update(reqModel);
   }
 
   @GetMapping
-  public PageInfo<DemoModel> listStrategies(
-      @RequestParam(value = "page", defaultValue = "0") final Integer page,
-      @RequestParam(value = "size", defaultValue = "10") final Integer size,
+  @ApiOperation(value = ApiDocs.API_DEMO_LIST, notes = ApiDocs.API_DEMO_LIST)
+  public PageInfo<DemoModel> list(
+      @RequestParam(value = "page", defaultValue = UrlsConstants.PAGE) final Integer page,
+      @RequestParam(value = "size", defaultValue = UrlsConstants.SIZE) final Integer size,
       @ModelAttribute final DemoModel model) {
 
     return service.findList(model, page, size);
