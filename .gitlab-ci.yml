@@ -1,0 +1,61 @@
+stages:
+    - analysis
+    - test_and_build 
+    - deploy
+
+sonar:
+    stage: analysis
+    script:
+    - echo "on_analysis"
+    - mvn clean package sonar:sonar -Dsonar.host.url=http://10.20.9.85:8888
+    only:
+    - develop
+  
+on_every_push:
+    stage: test_and_build
+    script:
+    - echo "on_every_push"
+    - mvn test
+    dependencies:
+               - sonar
+    # artifacts:
+    #     expire_in: 1 day
+    #     untracked: true
+
+on_develop_push:
+    stage: deploy
+    script:
+    - echo "on_develop_push"
+    - mvn clean package -Dmaven.test.skip=true
+    - scp -o StrictHostKeyChecking=no target/*.jar ytduser@10.20.9.85:/opt/ytd_app/operation/
+    - ssh -o StrictHostKeyChecking=no ytduser@10.20.9.85 "cd /opt/ytd_app/operation/ && ./run.sh stop && ./run.sh start"
+    - bash ./.codex.sh
+    only:
+    - develop
+    dependencies:
+    - on_every_push
+
+on_master_push:
+    stage: deploy
+    script:
+    - echo "on_master_push"
+    - mvn clean package -Dmaven.test.skip=true
+    only:
+    - master
+    dependencies:
+    - on_every_push
+    artifacts:
+        paths:
+        - "target/*.jar"
+        - "target/*.war"
+        - "**/target/*.jar"
+        - "**/target/*.war"
+        expire_in: 1 week
+
+on_release_tag:
+    stage: deploy
+    script:
+    - echo "on_release_tag"
+    only:
+    - /^release.+$/
+

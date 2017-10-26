@@ -71,7 +71,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
 
 operation:
-  swagger-open: true #是否开启swagger (true/false)
+  swagger-open: true #只允许本地和测试使用  生产不允许使用false
 
 server:
   port: 9100
